@@ -5,7 +5,16 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <Menu />
+      <div className="w-1/2 flex justify-center">
+        <Link href="/">
+          <Image
+            src="/pokemon-logo.png"
+            width={200}
+            height={200}
+            alt="Logo of pokemon"
+          />
+        </Link>
+      </div>
       <div className="flex justify-between items-center">
         <div className="flex flex-col items-center grow px-20">
           <p className="text-center text-4xl font-semibold">
@@ -14,7 +23,7 @@ export default function Home() {
           <p className="text-lg">Lorem ipsum dolor sit amet consectetur.</p>
           <div className="h-5"></div>
           <Link
-            href="/login"
+            href="/pokedex"
             className="flex items-center gap-3 self-center rounded-3xl bg-transparent text-sm font-medium text-black border-black border px-7 py-3 hover:bg-white"
           >
             <Image src={"/valor.png"} width={20} height={20} alt="" />
