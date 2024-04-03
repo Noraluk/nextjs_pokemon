@@ -3,14 +3,17 @@
 import Menu from "@/components/menu";
 import Pokeball from "@/icons/pokeball";
 import clsx from "clsx";
-import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import styles from "@/app/pokedex/page.module.css";
+import {
+  PokemonDetail,
+  PokemonDetailLoading,
+} from "@/components/pokemon_detail";
+import PokemonList from "@/components/pokemon_list";
 
 export default function Page() {
   const [selected, setSelected] = useState(0);
-
-  const pokemons = [1, 2, 3, 4, 5, 6, 1, 1, 1, 1, 1, 1, 1, 11, 1];
+  const [pokemonName, setPokemonName] = useState("");
 
   return (
     <div className="flex flex-col max-h-screen">
@@ -88,64 +91,21 @@ export default function Page() {
             </button>
           </div>
           <br />
-          <div className="grid grid-cols-3 gap-x-4 gap-y-10 overflow-y-scroll py-2 pr-4">
-            {pokemons.map((pokemon, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center justify-end py-5 gap-1 bg-white rounded-xl h-36 shadow-lg relative text-center"
-              >
-                <p className="text-xl absolute -top-4">asdasdasd</p>
-                <p>aasdasd</p>
-                <p>zzzzzzzzzzzz</p>
-                <div className="bg-lime-200 rounded-lg p-3">
-                  <p className="text-sm/[1px] font-bold">GLASS</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* pokemon list */}
+          <PokemonList setPokemonName={setPokemonName} />
         </div>
-        <div className="grow flex flex-col w-64">
-          <div className="h-1/6"></div>
-          <div className="grow bg-white rounded-2xl relative">
-            <div className="flex flex-col items-center h-full justify-between">
-              <div className="w-20 h-48 bg-red-800 -top-28 absolute"></div>
-              <div className="mt-20 flex flex-col justify-between text-center py-5 grow">
-                <p>#123</p>
-                <p>Foooooo</p>
-                <div className="flex gap-2 justify-center">
-                  <div>asdasd</div>
-                  <div>asdasd</div>
-                </div>
-                <p>Pokemon Entry</p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloribus, consequatur?
-                </p>
-                <p>abilities</p>
-                <div className="flex gap-2 justify-center">
-                  <div>asdasd</div>
-                  <div>asdasd</div>
-                </div>
-                <div className="grid grid-cols-2 w-full">
-                  <p>height</p>
-                  <p>weight</p>
-                  <div>
-                    <p>1.7m</p>
-                  </div>
-                  <div>
-                    <p>84.5kg</p>
-                  </div>
-                  <p>weakness</p>
-                  <p>base exp</p>
-                  <div>
-                    <p>1.7m</p>
-                  </div>
-                  <div>
-                    <p>84.5kg</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* pokemon detail */}
+        <div className="flex flex-col w-[340px]">
+          <div className="h-1/6" />
+          <div className="grow bg-white w-full h-full rounded-2xl relative">
+            {pokemonName.length > 0 && (
+              <Suspense fallback={<PokemonDetailLoading />}>
+                <PokemonDetail
+                  pokemonName={pokemonName}
+                  setPokemonName={setPokemonName}
+                />
+              </Suspense>
+            )}
           </div>
         </div>
       </div>
