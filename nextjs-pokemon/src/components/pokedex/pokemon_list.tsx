@@ -8,8 +8,10 @@ import { color } from "@/constants/constants";
 
 export default function PokemonList({
   setPokemonName,
+  pokemonSearch = "",
 }: {
   setPokemonName: Dispatch<SetStateAction<string>>;
+  pokemonSearch?: string;
 }) {
   const { ref, inView } = useInView();
 
@@ -39,25 +41,30 @@ export default function PokemonList({
     <>
       <div className="grid grid-cols-3 gap-x-4 gap-y-10 overflow-y-scroll py-7 pr-4">
         {pokemons?.pages.map((page, pageIndex) =>
-          page.map((pokemon: PokemonResponse, index: number) => {
-            if (page.length == index + 1) {
+          page
+            .filter((page) => {
+              if (pokemonSearch.length <= 0) return true;
+              return page.name.includes(pokemonSearch);
+            })
+            .map((pokemon: PokemonResponse, index: number) => {
+              if (page.length == index + 1) {
+                return (
+                  <Pokemon
+                    key={index}
+                    pokemon={pokemon}
+                    innerRef={ref}
+                    setPokemonName={setPokemonName}
+                  />
+                );
+              }
               return (
                 <Pokemon
                   key={index}
                   pokemon={pokemon}
-                  innerRef={ref}
                   setPokemonName={setPokemonName}
                 />
               );
-            }
-            return (
-              <Pokemon
-                key={index}
-                pokemon={pokemon}
-                setPokemonName={setPokemonName}
-              />
-            );
-          })
+            })
         )}
       </div>
       {isFetchingNextPage && (

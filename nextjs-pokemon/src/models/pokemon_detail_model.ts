@@ -1,5 +1,5 @@
 import PokemonResponse from "./pokemon_model";
-import PokemonStat from "./pokemon_stat_models";
+import PokemonStat from "./pokemon_stat_model";
 
 export interface IPokemon {
 	pokemon: PokemonResponse

@@ -1,6 +1,6 @@
-import { IPokemon } from "@/models/pokemon_detail_models";
+import { IPokemon } from "@/models/pokemon_detail_model";
 import PokemonResponse from "@/models/pokemon_model";
-import PokemonStat from "@/models/pokemon_stat_models";
+import PokemonStat from "@/models/pokemon_stat_model";
 import PokemonsResponse from "@/models/pokemons_model";
 import axios from "axios";
 
@@ -159,4 +159,20 @@ export async function fetchPokemonDetail(name: string) : Promise<IPokemon> {
 		nextPokemon: next,
   };
 	return res
+}
+
+export async function fetchItems(offset: number) : Promise<ItemResponse[]> {
+  const items: ItemResponse[] = [];
+  const res = await axios.get(`https://pokeapi.co/api/v2/item?offset=${offset}&limit=10`)
+  const itemsResponse: ItemsResponse = res.data
+  for (const v of itemsResponse.results) {
+    const item = await fetchItem(v.url)
+    items.push(item)
+  }
+  return items
+}
+
+export async function fetchItem(url: string): Promise<ItemResponse> {
+  const res = await axios.get(url)
+  return res.data
 }

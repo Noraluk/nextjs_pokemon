@@ -1,5 +1,5 @@
 import Card from "@/icons/card";
-import Controller from "@/icons/controller";
+import Item from "@/icons/item";
 import Newspaper from "@/icons/newspaper";
 import Pokeball from "@/icons/pokeball";
 import clsx from "clsx";
@@ -13,7 +13,7 @@ export default function Menu({
 }) {
   const menus = [
     { name: "Pokemon", icon: <Pokeball className="h-10" /> },
-    { name: "Videogames", icon: <Controller className="h-10" /> },
+    { name: "Items", icon: <Item className="h-10" /> },
     { name: "GCC Pokemon", icon: <Card className="h-10" /> },
     { name: "News", icon: <Newspaper className="h-10" /> },
   ];
