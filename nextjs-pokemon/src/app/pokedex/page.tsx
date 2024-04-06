@@ -17,8 +17,6 @@ export default function Page({
   const [selected, setSelected] = useState(0);
   const currentPage = Number(searchParams?.page) || 1;
 
-  console.log(currentPage);
-
   return (
     <div className="flex flex-col max-h-screen">
       <div className="h-5"></div>
